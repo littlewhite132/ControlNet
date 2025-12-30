@@ -20,7 +20,8 @@ max_epochs = 50
 
 def main():
     # First use cpu to load models. Pytorch Lightning will automatically move it to GPUs.
-    model = create_model('./models/cldm_v15.yaml').cpu()
+    # 使用与自训 SD 对齐、且指向本地 CLIP 的配置
+    model = create_model('./models/cldm_ct.yaml').cpu()
     # 允许从仅包含部分模块的 checkpoint 加载（例如无 ControlNet 权重）；对形状不匹配的权重直接跳过
     ckpt_state = load_state_dict(resume_path, location='cpu')
     model_state = model.state_dict()
