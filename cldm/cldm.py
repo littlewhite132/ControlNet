@@ -329,10 +329,11 @@ class ControlLDM(LatentDiffusion):
         assert isinstance(cond, dict)
         diffusion_model = self.model.diffusion_model
 
-        if cond.get('c_crossattn') is None:
+        c_cross = cond.get('c_crossattn')
+        if c_cross is None or any(x is None for x in c_cross):
             cond_txt = None
         else:
-            cond_txt = torch.cat(cond['c_crossattn'], 1)
+            cond_txt = torch.cat(c_cross, 1)
 
         if cond['c_concat'] is None:
             eps = diffusion_model(x=x_noisy, timesteps=t, context=cond_txt, control=None, only_mid_control=self.only_mid_control)
