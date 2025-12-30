@@ -7,7 +7,7 @@ model:
     log_every_t: 200
     timesteps: 1000
     first_stage_key: "jpg"
-    cond_stage_key: "txt"
+    cond_stage_key: null
     control_key: "hint"
     image_size: 64
     channels: 4
@@ -76,7 +76,4 @@ model:
         lossconfig:
           target: torch.nn.Identity
 
-    cond_stage_config:
-      target: ldm.modules.encoders.modules.FrozenCLIPEmbedder
-      params:
-        version: /media/NAS01/yyfangspx/models/clip-vit-large-patch14
+    cond_stage_config: __is_unconditional__
